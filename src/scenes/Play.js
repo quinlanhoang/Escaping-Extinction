@@ -4,6 +4,10 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        //initalizes gravity
+        this.physics.world.setBounds(0, 0, game.config.width, game.config.height - 60);
+        this.physics.world.gravity.y = 1000;
+        
         //scrolling tile sprite
         //adding variables to debug the sprite as it wasn't functioning properly intially
         const background = this.add.image(centerX, centerY - 60, 'desertbackground')
@@ -16,7 +20,8 @@ class Play extends Phaser.Scene {
         this.background = this.add.tileSprite(centerX, centerY - 60, background.width, background.height, 'desertbackground')
         .setOrigin(0.5).setScrollFactor(0);
         
-        //this.dinosuar = new Dinosaur(this, 100, 300);
+        this.dinosaur = new Dinosaur(this, 100, 300, 'dinosaur')
+
         //this.meteor = this.physics.add.group();
         //this.lavaPit = this.physics.add.group();
     }
