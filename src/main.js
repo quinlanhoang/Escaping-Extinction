@@ -1,6 +1,6 @@
 // Quinlan Hoang
 // Escaping Extinciton
-// Approximate time: 
+// Approximate time: 15 hours
 
 //main 
 
