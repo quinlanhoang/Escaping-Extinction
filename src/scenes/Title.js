@@ -15,6 +15,7 @@ class Title extends Phaser.Scene {
         //press enter to play & credits
         const instruction = this.add.bitmapText(centerX, centerY + 50, 'gemFont', 'Press Space to Start & Jump', 70).setOrigin(0.5).setTint(0xFF0000);
         const credit = this.add.bitmapText(centerX, centerY + 135, 'gemFont', 'By: Quinlan Hoang', 50).setOrigin(0.5).setTint(0xFF0000);
+        const credit02 = this.add.bitmapText(centerX, centerY + 305, 'gemFont', 'Credit to pixabay for VFX & Music', 30).setOrigin(0.5);
 
         // title text tween //taken from altice repository
         this.tweens.add({

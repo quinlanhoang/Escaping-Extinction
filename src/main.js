@@ -1,6 +1,8 @@
 // Quinlan Hoang
 // Escaping Extinciton
 // Approximate time: 15 hours
+// Creative Tilt: I was able to create a local highscore storage that will carry across scenes and update concurrently whenever... 
+// ...the player beats the current score. Additionally, I added meteors falling from the sky as a visual affect. 
 
 //main 
 
