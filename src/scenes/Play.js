@@ -22,7 +22,6 @@ class Play extends Phaser.Scene {
         
         this.dinosaur = new Dinosaur(this, 100, 300, 'dinosaur')
 
-        //this.meteor = this.physics.add.group();
         //lavapits
         this.lavapits = this.physics.add.group({
             immovable : true,
@@ -38,7 +37,7 @@ class Play extends Phaser.Scene {
         };
 
         this.time.addEvent({
-            delay : Phaser.Math.Between(2000, 5000),
+            delay : Phaser.Math.Between(1000, 5000),
             callback : createLavapit,
             callbackScope : this,
             loop : true
@@ -48,6 +47,31 @@ class Play extends Phaser.Scene {
         this.burningSound = this.sound.add('burning', {volume : 3});
 
         this.physics.add.collider(this.dinosaur, this.lavapits, this.gameOver, null, this);
+
+        //meteors
+        this.explosionSound = this.sound.add('explosion', {volume : 1.5});
+
+        this.meteors = this.physics.add.group({
+            immovable : true,
+            allowGravity : false,
+        });
+
+        const createMeteor = () => {
+            const x = Phaser.Math.Between(300, game.config.width);
+            const meteor = new Meteor(this, x, -50, 'meteor');
+            this.meteors.add(meteor);
+            this.cameras.main.shake(100, 0.025);
+            this.explosionSound.play();
+        }
+
+        this.time.addEvent({
+            delay : Phaser.Math.Between(2000, 5000),
+            callback : createMeteor,
+            callbackScope : this,
+            loop: true,
+        });
+
+        this.physics.add.collider(this.dinosaur, this.meteors, this.gameOver, null, this);
 
         //UI for score
         const scoreBoxWidth = 300;
@@ -88,6 +112,18 @@ class Play extends Phaser.Scene {
                 }
             }  
         });
+
+        this.meteors.children.iterate((meteor) => {
+            if (meteor && meteor.y !== undefined) {
+                meteor.y += 5;
+
+                //when meteor hit ground, becomes obstacle
+                if (meteor.y > game.config.height - 70) {
+                    meteor.body.immovable = true;
+                    meteor.body.allowGravity = false;
+                }
+            }
+        })
     }
 
     gameOver() {
